@@ -1,5 +1,5 @@
-#ifndef SE_SYSTEM_H
-#define SE_SYSTEM_H
+#ifndef SE_TYPES_H
+#define SE_TYPES_H
 
 /**
  * Basic types

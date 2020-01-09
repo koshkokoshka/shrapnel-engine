@@ -21,15 +21,18 @@ SE_Collection *SE_CreateCollection(reg initialCapacity, reg elementSize, u8 flag
 void SE_DestroyCollection(SE_Collection *collection);
 
 /**
- * @returns new array capacity
+ * \returns new array capacity
  */
 int SE_Collection_Resize(SE_Collection *self, reg size);
 
 /**
- * @returns index of element in array
+ * \returns index of element in array, -1 on failure
  */
 int SE_Collection_Push(SE_Collection *self, void *element);
 
+/**
+ * \return -1 on failure
+ */
 int SE_Collection_Remove(SE_Collection *self, int i);
 
 #define SE_Collection_Get(self, elementType, index) ( ((elementType *)((self)->data))[index] )
