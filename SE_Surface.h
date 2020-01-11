@@ -2,6 +2,7 @@
 #define SE_SURFACE_H
 
 #include "SE_System.h"
+#include "SE_Stream.h"
 
 typedef struct
 {
@@ -18,5 +19,7 @@ typedef struct
 SE_Surface *SE_CreateSurface(int w, int h, int d);
 
 void SE_DestroySurface(SE_Surface *surface);
+
+SE_Surface *SE_LoadSurface(SE_Stream *stream);
 
 #endif

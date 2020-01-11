@@ -1,5 +1,12 @@
 #include "SE_Math.h"
 
+/**
+ * Vector
+ */
+const SE_Vector SE_INITIAL_VECTOR = {
+        0, 0, 0, 1
+};
+
 void SE_Vector_RotateX(SE_Vector *p, f32 r)
 {
     f32 s = SE_SinF32(r);
@@ -36,6 +43,16 @@ void SE_Vector_RotateZ(SE_Vector *p, f32 r)
     p->y = b;
 }
 
+/**
+ * Matrix
+ */
+const SE_Matrix SE_IDENTITY_MATRIX = {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+};
+
 void SE_MultiplyMatrices(SE_Matrix *out, SE_Matrix *a, SE_Matrix *b)
 {
     SE_Matrix tmp = {
@@ -57,7 +74,7 @@ void SE_MultiplyMatrices(SE_Matrix *out, SE_Matrix *a, SE_Matrix *b)
             (a->m30 * b->m00) + (a->m31 * b->m10) + (a->m32 * b->m20) + (a->m33 * b->m30),
             (a->m30 * b->m01) + (a->m31 * b->m11) + (a->m32 * b->m21) + (a->m33 * b->m31),
             (a->m30 * b->m02) + (a->m31 * b->m12) + (a->m32 * b->m22) + (a->m33 * b->m32),
-            (a->m30 * b->m03) + (a->m31 * b->m13) + (a->m32 * b->m23) + (a->m33 * b->m33),
+            (a->m30 * b->m03) + (a->m31 * b->m13) + (a->m32 * b->m23) + (a->m33 * b->m33)
     };
     *out = tmp;
 }

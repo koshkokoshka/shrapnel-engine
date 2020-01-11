@@ -21,17 +21,27 @@ typedef enum SE_EventType
     SE_EVENT_MOUSE_MOVE,
     SE_EVENT_MOUSE_BUTTON_DOWN,
     SE_EVENT_MOUSE_BUTTON_UP,
+    SE_EVENT_MOUSE_WHEEL
 
 } SE_EventType;
+
+typedef enum
+{
+    LS_LMB = 1,
+    LS_MMB = 2,
+    LS_RMB = 4
+
+} LS_MouseButton;
 
 typedef struct SE_Event
 {
     SE_EventType type;
-
     union {
-        struct { SE_Surface *surface; } draw;
+        struct { SE_Surface *surface; f32 interpolator; } draw;
+        struct { f64 time; f32 delta; } tick;
+        struct { int w; int h; } size;
         struct { int key; } keyboard;
-        struct { f64 time; } tick;
+        struct { int x; int y; int dx; int dy; int wheel; LS_MouseButton buttons; } mouse;
     };
 
 } SE_Event;
@@ -46,6 +56,16 @@ typedef int (SE_EventHandler)(SE_Event *event);
 #define SE_KEYBOARD_KEY_RETURN    '\r'
 #define SE_KEYBOARD_KEY_ESCAPE    '\033'
 #define SE_KEYBOARD_KEY_SPACE     ' '
+#define SE_KEYBOARD_KEY_0         '0'
+#define SE_KEYBOARD_KEY_1         '1'
+#define SE_KEYBOARD_KEY_2         '2'
+#define SE_KEYBOARD_KEY_3         '3'
+#define SE_KEYBOARD_KEY_4         '4'
+#define SE_KEYBOARD_KEY_5         '5'
+#define SE_KEYBOARD_KEY_6         '6'
+#define SE_KEYBOARD_KEY_7         '7'
+#define SE_KEYBOARD_KEY_8         '8'
+#define SE_KEYBOARD_KEY_9         '9'
 #define SE_KEYBOARD_KEY_A         'A'
 #define SE_KEYBOARD_KEY_B         'B'
 #define SE_KEYBOARD_KEY_C         'C'

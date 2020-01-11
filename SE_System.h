@@ -25,6 +25,7 @@ typedef size_t reg;
  */
 #include <stdlib.h> // malloc, free
 #include <string.h> // memcpy
+#include <stdio.h>
 
 /**
  * Useful macros

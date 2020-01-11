@@ -4,7 +4,13 @@
 #include "SE_System.h"
 #include "SE_Surface.h"
 
+void SE_DrawBuffer(SE_Surface *surface, int x0, int y0, int x1, int y1, void *data, reg step);
+
+void SE_DrawBuffer_Scaled(SE_Surface *surface, int x0, int y0, int x1, int y1, void *data, reg step, int w, int h);
+
 void SE_DrawLine(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color);
+
+void SE_DrawRect(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color);
 
 void SE_FillRect(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color);
 

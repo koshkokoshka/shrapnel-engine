@@ -1,8 +1,8 @@
 #include "SE_Stream.h"
 
-#include "SE_Math.h"
-
 #include <windows.h>
+
+#include "SE_Math.h" // MinI32
 
 reg SE_Stream_File_Read(SE_Stream *self, void *buffer, reg size)
 {
@@ -23,10 +23,12 @@ void SE_Stream_File_Close(SE_Stream *self)
     CloseHandle(self->data);
 }
 
-typedef struct {
+typedef struct
+{
     HRSRC hResInfo;
     HGLOBAL *hRes;
     reg position;
+
 } SE_Stream_Resource_Data;
 
 SE_Stream_VTable SE_Stream_File_VTable = {
