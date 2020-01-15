@@ -9,7 +9,7 @@ int SE_Demo_HandleEvent(SE_Event *event)
 {
     switch (event->type)
     {
-        case SE_EVENT_TYPE_DRAW: {
+        case SE_EVENT_DRAW: {
             SE_Surface *surface = event->draw.surface;
 
             static int frame = 0;
@@ -89,7 +89,7 @@ LRESULT CALLBACK SE_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
             if (BeginPaint(hWnd, &ps) != nil) {
 
                 SE_Event event;
-                event.type = SE_EVENT_TYPE_DRAW,
+                event.type = SE_EVENT_DRAW,
                 event.draw.surface = fb;
                 if (SE_Demo_HandleEvent(&event) == 0) {
 
