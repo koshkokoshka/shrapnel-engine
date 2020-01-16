@@ -18,4 +18,18 @@ void SE_DrawTriangle(SE_Surface *surface, int x0, int y0, int x1, int y1, int x2
 
 void SE_FillTriangle(SE_Surface *surface, int x0, int y0, int x1, int y1, int x2, int y2, u32 color);
 
+static inline void SE_DrawPoint_Fast(SE_Surface *surface, int x, int y, u32 color)
+{
+    ((u32 *)surface->data)[x + y * surface->step] = color;
+}
+
+static inline void SE_DrawPoint(SE_Surface *surface, int x, int y, u32 color)
+{
+    if (    x >= 0 && x < surface->w
+            && y >= 0 && y < surface->h)
+    {
+        SE_DrawPoint_Fast(surface, x, y, color);
+    }
+}
+
 #endif

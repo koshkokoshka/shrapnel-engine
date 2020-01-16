@@ -1,20 +1,6 @@
 #include "SE_Draw.h"
 #include "SE_Math.h"
 
-static inline void SE_DrawPoint_Fast(SE_Surface *surface, int x, int y, u32 color)
-{
-    ((u32 *)surface->data)[x + y * surface->step] = color;
-}
-
-static inline void SE_DrawPoint(SE_Surface *surface, int x, int y, u32 color)
-{
-    if (    x >= 0 && x < surface->w
-         && y >= 0 && y < surface->h)
-    {
-        SE_DrawPoint_Fast(surface, x, y, color);
-    }
-}
-
 void SE_DrawBuffer(SE_Surface *surface, int x0, int y0, int x1, int y1, void *data, reg step)
 {
     /* prestep source buffer */
@@ -79,25 +65,35 @@ void SE_DrawBuffer_Scaled(SE_Surface *surface, int x0, int y0, int x1, int y1, v
 
 void SE_DrawLine(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color)
 {
-    int w = x1 - x0;
-    int h = y1 - y0;
+    if (x0 == x1) {
+        for (int y = y0; y < y1; ++y) {
+            SE_DrawPoint(surface, x0, y, color);
+        }
+    } else if (y0 == y1) {
+        for (int x = x0; x < x1; ++x) {
+            SE_DrawPoint(surface, x, y0, color);
+        }
+    } else {
+        int w = x1 - x0;
+        int h = y1 - y0;
 
-    int length = SE_MaxInt(SE_AbsInt(w), SE_AbsInt(h));
-    if (length > 0) {
+        int length = SE_MaxInt(SE_AbsInt(w), SE_AbsInt(h));
+        if (length > 0) {
 
-        f32 sx = (f32)w / (f32)length;
-        f32 sy = (f32)h / (f32)length;
+            f32 sx = (f32)w / (f32)length;
+            f32 sy = (f32)h / (f32)length;
 
-        f32 px = (f32)x0 + 0.5f; /* + 0.5 used for ceiling */
-        f32 py = (f32)y0 + 0.5f;
+            f32 px = (f32)x0 + 0.5f; /* + 0.5 used for ceiling */
+            f32 py = (f32)y0 + 0.5f;
 
-        for (int i = 0; i < length; ++i) {
-            int x = (int)px;
-            int y = (int)py;
-            SE_DrawPoint(surface, x, y, color);
+            for (int i = 0; i < length; ++i) {
+                int x = (int)px;
+                int y = (int)py;
+                SE_DrawPoint(surface, x, y, color);
 
-            px += sx;
-            py += sy;
+                px += sx;
+                py += sy;
+            }
         }
     }
 }
