@@ -3,6 +3,7 @@
 
 #include "SE_System.h"
 #include "SE_Surface.h"
+#include "SE_Sound.h"
 
 typedef enum SE_EventType
 {
@@ -14,6 +15,8 @@ typedef enum SE_EventType
     SE_EVENT_TICK,
     SE_EVENT_DRAW,
     SE_EVENT_SIZE,
+
+    SE_EVENT_AUDIO_FILL,
 
     SE_EVENT_KEYBOARD_KEY_DOWN,
     SE_EVENT_KEYBOARD_KEY_UP,
@@ -40,6 +43,7 @@ typedef struct SE_Event
         struct { SE_Surface *surface; f32 interpolator; } draw;
         struct { f64 time; f32 delta; } tick;
         struct { int w; int h; } size;
+        struct { SE_Sound *sound; } audio;
         struct { int key; } keyboard;
         struct { int x; int y; int dx; int dy; int wheel; LS_MouseButton buttons; } mouse;
     };

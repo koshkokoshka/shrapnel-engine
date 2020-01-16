@@ -10,7 +10,7 @@ set(SOURCES
         SE_Math.c)
 
 if(WIN32)
-    add_library(shrapnel ${SOURCES} SE_Stream_Win32.c SE_Surface_Win32.c)
+    add_library(shrapnel ${SOURCES} SE_Stream_Win32.c SE_Surface_Win32.c SE_Sound_Win32.c)
     target_link_libraries(shrapnel winmm windowscodecs)
 elseif(EMSCRIPTEN)
     add_library(shrapnel ${SOURCES} SE_Stream_Emscripten.c)
