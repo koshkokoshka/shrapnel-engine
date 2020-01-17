@@ -18,6 +18,8 @@ void SE_DrawTriangle(SE_Surface *surface, int x0, int y0, int x1, int y1, int x2
 
 void SE_FillTriangle(SE_Surface *surface, int x0, int y0, int x1, int y1, int x2, int y2, u32 color);
 
+void SE_DrawRect_Dashed(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color, int step, int gaps);
+
 static inline void SE_DrawPoint_Fast(SE_Surface *surface, int x, int y, u32 color)
 {
     ((u32 *)surface->data)[x + y * surface->step] = color;

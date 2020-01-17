@@ -98,6 +98,48 @@ void SE_DrawLine(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color)
     }
 }
 
+void SE_DrawRect_Dashed(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color, int step, int gaps)
+{
+    int l = (x0 >= 0) && (x0 < surface->w);
+    int r = (x1 >= 0) && (x1 < surface->w);
+    int t = (y0 >= 0) && (y0 < surface->h);
+    int b = (y1 >= 0) && (y1 < surface->h);
+
+    x0 = SE_MaxI32(x0, 0);
+    x1 = SE_MinI32(x1, surface->w);
+    y0 = SE_MaxI32(y0, 0);
+    y1 = SE_MinI32(y1, surface->h);
+
+    if (l) {
+        int s = 0;
+        for (int y = y0; y < y1; y++) {
+            ((u32 *)surface->data)[x0 + y * surface->step] = color;
+            if (++s >= step) { s = 0; for (int g = gaps; g; --g) { y++; } }
+        }
+    }
+    if (r) {
+        int s = 0;
+        for (int y = y0; y < y1; y++) {
+            ((u32 *)surface->data)[x1 + y * surface->step] = color;
+            if (++s >= step) { s = 0; for (int g = gaps; g; --g) { y++; } }
+        }
+    }
+    if (t) {
+        int s = 0;
+        for (int x = x0; x < x1; x++) {
+            ((u32 *)surface->data)[x + y0 * surface->step] = color;
+            if (++s >= step) { s = 0; for (int g = gaps; g; --g) { x++; } }
+        }
+    }
+    if (b) {
+        int s = 0;
+        for (int x = x0; x < x1; x++) {
+            ((u32 *)surface->data)[x + y1 * surface->step] = color;
+            if (++s >= step) { s = 0; for (int g = gaps; g; --g) { x++; } }
+        }
+    }
+}
+
 void SE_DrawRect(SE_Surface *surface, int x0, int y0, int x1, int y1, u32 color)
 {
     int l = (x0 >= 0) && (x0 < surface->w);
