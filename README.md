@@ -1,2 +1,2 @@
 # Shrapnel Engine
-Shrapnel Engine is a library.
+A game programming library.
